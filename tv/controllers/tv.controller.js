@@ -74,7 +74,7 @@ exports.turnOffTv = (req, res) => {
 					console.debug('error', err)
 				} else {
 					res.status(200).send({
-						...result
+						...result,
 						isSuccess: true
 					})
 				}
