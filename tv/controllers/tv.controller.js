@@ -1,9 +1,13 @@
 const { Samsung, KEYS, APPS } = require('samsung-tv-control')
 const SamsungRemote = require('node-samsung-remote');
+const { resolve } = require('path');
 require('dotenv').config()
 
-const samsungRemote = new SamsungRemote({
+const tvRemote = new SamsungRemote({
 	ip: process.env.SAMSUNG_TV_IP,
+	port: 8001,
+	debug: true,
+	tvAppString: 'smarthome-server'
 });
 
 const livingRoomTvConfig = {
@@ -118,7 +122,6 @@ exports.pausePlaying = (req, res) => {
 						isSuccess: true,
 					})
 				}
-				control.closeConnection()
 			})
 		})
 }
@@ -130,5 +133,23 @@ exports.turnOnTv = (req, res) => {
 			res.status(200).send({
 				isTvOn: true
 			})
+		})
+}
+
+exports.goToChannel = (req, res) => {
+	/*const control = new Samsung(livingRoomTvConfig)
+	control.isAvailable()
+		.then(() => {
+		}
+	*/
+
+	const givenChannelId = req.body.channelId.toString()
+	const channelLength = [...givenChannelId]
+		for (let i = 0; i<channelLength.length; i++) {
+			console.debug('curerentDigit', givenChannelId[i])
+			// TODO: execute `KEY_${givenChannelId[i]} here
+		}
+		res.status(200).send({
+			isSuccess: true
 		})
 }

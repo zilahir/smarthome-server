@@ -22,4 +22,7 @@ exports.routesConfig = app => {
   app.get('/tv/pausePlaying', [
     tvController.pausePlaying
   ])
+  app.post('/tv/channel/goto', [
+    tvController.goToChannel
+  ])
 }
