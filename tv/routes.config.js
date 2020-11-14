@@ -17,7 +17,7 @@ exports.routesConfig = app => {
     tvController.unMuteTv
   ])
   app.post('/tv/channel', [
-    tvController.changeChannel
+    tvController.changeChannelByDirection
   ])
   app.get('/tv/pausePlaying', [
     tvController.pausePlaying

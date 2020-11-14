@@ -1,5 +1,10 @@
 const { Samsung, KEYS, APPS } = require('samsung-tv-control')
+const SamsungRemote = require('node-samsung-remote');
 require('dotenv').config()
+
+const samsungRemote = new SamsungRemote({
+	ip: process.env.SAMSUNG_TV_IP,
+});
 
 const livingRoomTvConfig = {
 	debug: false,
@@ -57,13 +62,14 @@ exports.unMuteTv = (req, res) => {
 		})
 }
 
-exports.changeChannel = (req, res) => {
-	const targetChannel = req.body.targetChannelId
+exports.changeChannelByDirection = (req, res) => {
+	const targetChannel = req.body.direction
 	console.debug
 	const control = new Samsung(livingRoomTvConfig)
 	control.isAvailable()
 		.then((isAvailable) => {
 			const direction = targetChannel === 1 ? KEYS.KEY_CHUP : KEYS.KEY_CHDOWN
+			console.debug('direction', direction, targetChannel)
 			setTimeout(() => {
 				control.sendKey(direction, (err, result) => {
 					if (err) {
