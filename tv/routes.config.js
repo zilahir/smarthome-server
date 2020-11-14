@@ -2,7 +2,7 @@ const tvController = require('./controllers/tv.controller')
 
 exports.routesConfig = app => {
   app.get('/tv', [
-    tvController.isTvOn
+    tvController.isTvOn // TODO: ThIS SHOULD BE IN MIDDLEWARE
   ])
   app.get('/tv/on', [
     tvController.turnOnTv
