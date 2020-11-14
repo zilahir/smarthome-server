@@ -1,14 +1,6 @@
 const { Samsung, KEYS, APPS } = require('samsung-tv-control')
-const SamsungRemote = require('node-samsung-remote');
 const { resolve } = require('path');
 require('dotenv').config()
-
-const tvRemote = new SamsungRemote({
-	ip: process.env.SAMSUNG_TV_IP,
-	port: 8001,
-	debug: true,
-	tvAppString: 'smarthome-server'
-});
 
 const livingRoomTvConfig = {
 	debug: false,
