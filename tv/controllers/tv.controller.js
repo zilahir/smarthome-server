@@ -2,7 +2,7 @@ const { Samsung, KEYS, APPS } = require('samsung-tv-control')
 require('dotenv').config()
 
 const livingRoomTvConfig = {
-	debug: true,
+	debug: false,
 	ip: process.env.SAMSUNG_TV_IP,
 	mac: process.env.SAMSUNG_TV_MAC,
 	nameApp: 'smarthome-server',
@@ -13,42 +13,53 @@ const livingRoomTvConfig = {
 
 exports.isTvOn = (req, res) => {
 	const control = new Samsung(livingRoomTvConfig)	
-	control.isAvailable(avaliable => {
-		control.closeConnection()
-		res.status(200).send({
-			isAvailable: avaliable,
+	control.isAvailable()
+		.then(isAvailable => {
+			res.status(200).send({
+				isAvailable
+			})
 		})
-	})
 }
 
 exports.muteTv = (req, res) => {
-	const control = new Samsung(livingRoomTvConfig)	
+	const control = new Samsung(livingRoomTvConfig)
 	control.isAvailable()
 		.then((isAvailable) => {
-			control.getToken(token => {
-				control.sendKey(KEYS.KEY_MUTE, (err, result) => {
-					if (err) {
-						console.debug('err', err)
-					} else {
-						res.status(200).send({
-							isMuted: true,
-							token,
-						})
-					}
-					control.closeConnection()
-				})
+			control.sendKey(KEYS.KEY_MUTE, (err, result) => {
+				if (err) {
+					console.debug('err', err)
+				} else {
+					res.status(200).send({
+						...result,
+						isMuted: true,
+					})
+				}
+				// control.closeConnection()
 			})
 		})
 }
 
 exports.unMuteTv = (req, res) => {
-	res.status(200).send({
-		isMuted: false
-	})
+	const control = new Samsung(livingRoomTvConfig)	
+	control.isAvailable()
+		.then((isAvailable) => {
+			control.sendKey(KEYS.KEY_MUTE, (err, result) => {
+				if (err) {
+					console.debug('err', err)
+				} else {
+					res.status(200).send({
+						...result,
+						isMuted: false,
+					})
+				}
+				// control.closeConnection()
+			})
+		})
 }
 
 exports.changeChannel = (req, res) => {
-	const targetChannel = req.params.targetChannelId
+	const targetChannel = req.body.targetChannelId
+	console.debug
 	const control = new Samsung(livingRoomTvConfig)
 	control.isAvailable()
 		.then((isAvailable) => {
@@ -57,10 +68,11 @@ exports.changeChannel = (req, res) => {
 					console.debug('err', err)
 				} else {
 					res.status(200).send({
+						targetChannel,
 						pressed: true,
+						...result
 					})
 				}
-				control.closeConnection()
 			})
 		})
 }
