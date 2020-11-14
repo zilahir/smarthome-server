@@ -63,17 +63,20 @@ exports.changeChannel = (req, res) => {
 	const control = new Samsung(livingRoomTvConfig)
 	control.isAvailable()
 		.then((isAvailable) => {
-			control.sendKey(KEYS.KEY_CHUP, (err, result) => {
-				if (err) {
-					console.debug('err', err)
-				} else {
-					res.status(200).send({
-						targetChannel,
-						pressed: true,
-						...result
-					})
-				}
-			})
+			const direction = targetChannel === 1 ? KEYS.KEY_CHUP : KEYS.KEY_CHDOWN
+			setTimeout(() => {
+				control.sendKey(direction, (err, result) => {
+					if (err) {
+						console.debug('err', err)
+					} else {
+						res.status(200).send({
+							targetChannel,
+							pressed: true,
+							...result
+						})
+					}
+				})
+			}, 300)
 		})
 }
 
@@ -87,11 +90,39 @@ exports.turnOffTv = (req, res) => {
 				} else {
 					res.status(200).send({
 						...result,
-						isSuccess: true
+						isSuccess: true,
+						isTvOn: false,
 					})
 				}
 				control.closeConnection()
 			})
 		})
-	
+}
+
+exports.pausePlaying = (req, res) => {
+	const control = new Samsung(livingRoomTvConfig)
+	control.isAvailable()
+		.then(() => {
+			control.sendKey(KEYS.KEY_PAUSE, (err, result) => {
+				if (err) {
+					console.debug('error', err)
+				} else {
+					res.status(200).send({
+						...result,
+						isSuccess: true,
+					})
+				}
+				control.closeConnection()
+			})
+		})
+}
+
+exports.turnOnTv = (req, res) => {
+	const control = new Samsung(livingRoomTvConfig)
+	control.turnOn()
+		.then(() => {
+			res.status(200).send({
+				isTvOn: true
+			})
+		})
 }
