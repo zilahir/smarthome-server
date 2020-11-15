@@ -19,7 +19,7 @@
     "socker.io"
   ],
   "engines": {
-    "node": "12.x"
+    "node": "10.x"
   },
   "author": "zilahir",
   "license": "ISC",
