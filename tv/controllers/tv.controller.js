@@ -1,5 +1,4 @@
 const { Samsung, KEYS, APPS } = require('samsung-tv-control')
-const { resolve } = require('path');
 require('dotenv').config()
 
 const livingRoomTvConfig = {
@@ -53,7 +52,6 @@ exports.unMuteTv = (req, res) => {
 						isMuted: false,
 					})
 				}
-				// control.closeConnection()
 			})
 		})
 }

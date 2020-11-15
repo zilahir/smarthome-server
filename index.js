@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const serverless = require('serverless-http');
 const UsersRouter = require('./users/routes.config');
 const TvRouter = require('./tv/routes.config')
+const TrainRouter = require('./trains/routes.config')
 
 const AuthorizationRouter = require('./authorization/routes.config');
 const EmailRouter = require('./emails/routes.config');
@@ -30,6 +31,7 @@ app.use(bodyParser.json());
 AuthorizationRouter.routesConfig(app);
 UsersRouter.routesConfig(app);
 TvRouter.routesConfig(app);
+TrainRouter.routesConfig(app)
 
 app.get('/', function (req, res) {
 	res.send({
