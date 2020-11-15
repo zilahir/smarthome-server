@@ -1,5 +1,5 @@
 # run ===============================
-FROM node:10
+FROM node:11-alpine
 
 # Create app directory
 WORKDIR /usr/src/smarthome-server
@@ -16,5 +16,6 @@ RUN npm install
 # Bundle app source
 COPY . .
 
-EXPOSE 3000
+EXPOSE 5000
+
 CMD ["npm", "run", "dev" ]
