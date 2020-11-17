@@ -149,10 +149,13 @@ exports.goToChannel = (req, res) => {
 }
 
 exports.changeVolumeUp = (req, res) => {
-	const setLowerBy = Number.parseInt(req.body.setLowerBy, 10)
-	const volumeLength = Array.from(Array.from(new Array(setLowerBy).fill().map((_, index) => index + 1)))
+	const setHigherBy = Number.parseInt(req.body.setHigherBy, 10)
+	const volumeLength = Array.from(Array.from(new Array(setHigherBy).fill().map((_, index) => index + 1)))
 
 	for (let i = 0; i<volumeLength.length; i++) {
-		console.debug('volumeup', i)
+		console.debug('volumeup', volumeLength[i])
 	}
+	res.status(200).send({
+		isSuccess: true
+	})
 }

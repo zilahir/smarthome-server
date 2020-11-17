@@ -25,4 +25,7 @@ exports.routesConfig = app => {
   app.post('/tv/channel/goto', [
     tvController.goToChannel
   ])
+  app.post('/tv/volume/up', [
+    tvController.changeVolumeUp
+  ])
 }
