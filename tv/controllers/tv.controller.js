@@ -1,3 +1,4 @@
+const { resolve } = require('path')
 const { Samsung, KEYS, APPS } = require('samsung-tv-control')
 require('dotenv').config()
 
@@ -127,19 +128,22 @@ exports.turnOnTv = (req, res) => {
 }
 
 exports.goToChannel = (req, res) => {
-	/*const control = new Samsung(livingRoomTvConfig)
-	control.isAvailable()
-		.then(() => {
-		}
-	*/
-
 	const givenChannelId = req.body.channelId.toString()
 	const channelLength = [...givenChannelId]
-		for (let i = 0; i<channelLength.length; i++) {
-			console.debug('curerentDigit', givenChannelId[i])
-			// TODO: execute `KEY_${givenChannelId[i]} here
+	const control = new Samsung(livingRoomTvConfig)
+	control.isAvailable()
+		.then(() => {
+			for (let i = 0, p = Promise.resolve(); i < channelLength.length; i++) {
+				const currentKey = KEYS[`KEY_${channelLength[i]}`]
+				p = p.then(_ => new Promise(resolve =>
+						control.sendKeyPromise(currentKey)
+							.then(() => {
+								resolve()
+							})
+				));
 		}
-		res.status(200).send({
-			isSuccess: true
+			res.status(200).send({
+				isSuccess: true,
+			})
 		})
 }
