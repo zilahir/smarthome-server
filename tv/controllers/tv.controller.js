@@ -1,4 +1,3 @@
-const { resolve } = require('path')
 const { Samsung, KEYS, APPS } = require('samsung-tv-control')
 require('dotenv').config()
 

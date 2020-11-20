@@ -8,6 +8,7 @@ const serverless = require('serverless-http');
 const UsersRouter = require('./users/routes.config');
 const TvRouter = require('./tv/routes.config')
 const TrainRouter = require('./trains/routes.config')
+const RadioRouter = require('./radio/routes.config')
 
 const AuthorizationRouter = require('./authorization/routes.config');
 const EmailRouter = require('./emails/routes.config');
@@ -34,6 +35,7 @@ AuthorizationRouter.routesConfig(app);
 UsersRouter.routesConfig(app);
 TvRouter.routesConfig(app);
 TrainRouter.routesConfig(app)
+RadioRouter.routesConfig(app)
 
 app.get('/', function (req, res) {
 	res.send({
