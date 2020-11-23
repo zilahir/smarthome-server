@@ -2,7 +2,7 @@ const { Samsung, KEYS, APPS } = require('samsung-tv-control')
 require('dotenv').config()
 
 const livingRoomTvConfig = {
-	debug: false,
+	debug: true,
 	ip: process.env.SAMSUNG_TV_IP,
 	mac: process.env.SAMSUNG_TV_MAC,
 	nameApp: 'smarthome-server',
@@ -129,17 +129,14 @@ exports.turnOnTv = (req, res) => {
 exports.goToChannel = (req, res) => {
 	const givenChannelId = req.body.channelId.toString()
 	const channelLength = [...givenChannelId]
+	console.debug('channelLength', channelLength)
 	const control = new Samsung(livingRoomTvConfig)
 	control.isAvailable()
 		.then(() => {
-			for (let i = 0, p = Promise.resolve(); i < channelLength.length; i++) {
+			for (let i = 0; i < 1; i++) {
 				const currentKey = KEYS[`KEY_${channelLength[i]}`]
-				p = p.then(_ => new Promise(resolve =>
-						control.sendKeyPromise(currentKey)
-							.then(() => {
-								resolve()
-							})
-				));
+				console.debug('currentKey', currentKey)
+				control.sendKeyPromise(currentKey)
 		}
 			res.status(200).send({
 				isSuccess: true,

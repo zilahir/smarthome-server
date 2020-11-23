@@ -6,7 +6,6 @@ const server = require("http").Server(app);
 const bodyParser = require('body-parser');
 const serverless = require('serverless-http');
 const UsersRouter = require('./users/routes.config');
-const TvRouter = require('./tv/routes.config')
 const TrainRouter = require('./trains/routes.config')
 const RadioRouter = require('./radio/routes.config')
 
@@ -33,7 +32,6 @@ app.use(bodyParser.json());
 
 AuthorizationRouter.routesConfig(app);
 UsersRouter.routesConfig(app);
-TvRouter.routesConfig(app);
 TrainRouter.routesConfig(app)
 RadioRouter.routesConfig(app)
 
