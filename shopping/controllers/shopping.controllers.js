@@ -37,6 +37,13 @@ exports.createShoppingList = (req, res) => {
 exports.getLastUnfullFilled = (req, res) => {
   ShoppingModel.getLastUnFullfilledShoppingListId()
     .then(result => {
+      if (result === null) {
+        const unFullFilled = {
+          isSuccess: false,
+          reason: 'No shopping list found, you need to create one first'
+        }
+        res.status(500).send(unFullFilled)
+      }
       res.status(200).send(result)
     })
 }

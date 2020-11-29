@@ -93,3 +93,20 @@ exports.setFullFilled = shoppingListId => {
     })
   })
 }
+
+exports.addItemToShoppingListItems = (shoppingListId, newShoppingItem) => {
+  return new Promise((resolve, reject) => {
+    ShoppingList.findOne({
+      id: shoppingListId
+    }, (err, shoppingList) => {
+      if (err) reject(err)
+      const currentItems = shoppingListId.items
+      currentItems.concat(newShoppingItem)
+      shoppingList.items = currentItems
+      shoppingList.save((err, updatedShoppingList) => {
+        if (err) reject(err)
+        resolve(updatedShoppingList)
+      })
+    })
+  })
+}
