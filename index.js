@@ -34,7 +34,6 @@ app.use(bodyParser.json());
 AuthorizationRouter.routesConfig(app);
 UsersRouter.routesConfig(app);
 TrainRouter.routesConfig(app)
-RadioRouter.routesConfig(app)
 ShoppingRouter.routesConfig(app)
 
 app.get('/', function (req, res) {

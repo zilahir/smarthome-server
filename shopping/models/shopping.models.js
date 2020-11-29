@@ -109,7 +109,6 @@ exports.addItemToShoppingListItems = (shoppingListId, newShoppingItem) => {
         }
       }).then(foundProduct => {
         if (foundProduct) {
-          console.debug('foundProduct', foundProduct)
           currentItems.push(foundProduct)
           shoppingList.items = currentItems
           shoppingList.save(function(err, updatedShoppingList) {
