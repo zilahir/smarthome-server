@@ -1,7 +1,19 @@
-const ShoppingControlelr = require('./controllers/shopping.controllers')
+const ShoppingController = require('./controllers/shopping.controllers')
 
 exports.routesConfig = app => {
-  app.post('/shopping/insert', [
-    ShoppingControlelr.insert
+  app.post('/shopping/shoppingitem/insert', [
+    ShoppingController.insertNewShoppingItem
+  ])
+  app.post('/shopping/product/insert', [
+    ShoppingController.insertNewProductItem
+  ])
+  app.get('/shopping/getallproducts', [
+    ShoppingController.getAllProducts
+  ])
+  app.post('/shopping/shoppinglist', [
+    ShoppingController.createShoppingList
+  ])
+  app.get('/shopping/lastshoppinglist', [
+    ShoppingController.getLastUnfullFilled
   ])
 }
