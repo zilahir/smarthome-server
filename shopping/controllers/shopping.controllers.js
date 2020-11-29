@@ -3,7 +3,11 @@ const ShoppingModel = require('../models/shopping.models')
 exports.insertNewShoppingItem = (req, res) => {
   ShoppingModel.insertShoppingItem(req.body, req.foundShoppingList.id)
     .then(result => {
-      res.status(200).send(result)
+      if (result.isSuccess) {
+        res.status(200).send(result)
+      } else {
+        res.status(500).send(result)
+      }
     })
 }
 

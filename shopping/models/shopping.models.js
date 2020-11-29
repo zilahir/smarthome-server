@@ -118,6 +118,11 @@ exports.addItemToShoppingListItems = (shoppingListId, newShoppingItem) => {
               isSuccess: true,
             })
           })
+        } else {
+          resolve({
+            isSuccess: false,
+            reason: 'Product not found in products! See help!'
+          })
         }
       })
     })
@@ -125,7 +130,11 @@ exports.addItemToShoppingListItems = (shoppingListId, newShoppingItem) => {
 }
 
 exports.insertShoppingItem = (shoppingItemData, shoppingListId) => {
-  const shoppingItem = new ShoppingItem(shoppingItemData)
-  this.addItemToShoppingListItems(shoppingListId, shoppingItemData)
-  return shoppingItem.save()
+  return new Promise((resolve, reject) => {
+    const shoppingItem = new ShoppingItem(shoppingItemData)
+    this.addItemToShoppingListItems(shoppingListId, shoppingItemData)
+      .then(result => {
+        resolve(result)
+      })
+  })
 }
