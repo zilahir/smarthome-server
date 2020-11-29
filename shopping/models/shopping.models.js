@@ -1,5 +1,6 @@
 const { mongo } = require('mongoose');
-const { format } = require('date-fns')
+const { format } = require('date-fns');
+const shortid = require('shortid');
 
 const mongoose = require('../../services/mongoose.service').mongoose;
 
@@ -23,6 +24,7 @@ const ProductItem = mongoose.model('Product', productSchema)
 const shoppingListSchema = new Schema({
   createdAt: String,
   isFullFilled: Boolean,
+  id: String,
   items: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Product'
@@ -62,7 +64,8 @@ exports.getAllProducts = () => {
 exports.createShoppingList = () => {
   const newShoppingListData = {
     isFullFilled: false,
-    createdAt: format(new Date(), 'yyyy-MM-dd hh:mm')
+    createdAt: format(new Date(), 'yyyy-MM-dd hh:mm'),
+    id: shortid.generate()
   }
   const newShoppingList = new ShoppingList(newShoppingListData)
   return newShoppingList.save()
@@ -73,5 +76,20 @@ exports.getLastUnFullfilledShoppingListId = () => {
     isFullFilled: false
   }).sort({
     'createdAt': -1
+  })
+}
+
+exports.setFullFilled = shoppingListId => {
+  return new Promise((resolve, reject) => {
+    ShoppingList.findOne({
+      id: shoppingListId
+    }, function(err, shoppingList) {
+      if (err) reject(err)
+      shoppingList.isFullFilled = true
+      shoppingList.save(function (err, updatedShoppingList) {
+        if (err) reject(err)
+        resolve(updatedShoppingList)
+      })
+    })
   })
 }

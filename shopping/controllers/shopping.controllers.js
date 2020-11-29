@@ -42,7 +42,7 @@ exports.getLastUnfullFilled = (req, res) => {
 }
 
 exports.setListToFullFulledByID = (req, res) => {
-  ShoppingModel.setFullFulled(req.body.shoppingListId)
+  ShoppingModel.setFullFilled(req.body.shoppingListId)
     .then(() => {
       res.status(200).send({
         isSuccess: true,
