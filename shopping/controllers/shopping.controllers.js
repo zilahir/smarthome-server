@@ -1,7 +1,7 @@
 const ShoppingModel = require('../models/shopping.models')
 
 exports.insertNewShoppingItem = (req, res) => {
-  ShoppingModel.insertShoppingItem(req.body, req.foundShoppingList.id)
+  ShoppingModel.insertShoppingItem(req.body, req.foundShoppingListId)
     .then(result => {
       if (result.isSuccess) {
         res.status(200).send(result)
@@ -46,18 +46,17 @@ exports.getLastUnfullFilled = (req, res, next) => {
         }
         res.status(500).send(unFullFilled)
       } else {
-        req.foundShoppingList = result
+        console.debug('foundShoppingList', result)
+        req.foundShoppingListId = result.id
         next()
       }
       // res.status(200).send(result)
     })
 }
 
-exports.setListToFullFulledById = (req, res) => {
-  ShoppingModel.setFullFilled(req.body.shoppingListId)
+exports.setListToFullFulledById = (req, res, next) => {
+  ShoppingModel.setFullFilled(req.foundShoppingListId)
     .then(() => {
-      res.status(200).send({
-        isSuccess: true,
-      })
+      next()
     })
 }

@@ -1,4 +1,5 @@
 const ShoppingController = require('./controllers/shopping.controllers')
+const EmailController = require('../email/controllers/email.controller')
 
 exports.routesConfig = app => {
   app.post('/shopping/shoppingitem/insert', [
@@ -19,5 +20,10 @@ exports.routesConfig = app => {
   ])
   app.patch('/shopping/listfullfilled', [
     ShoppingController.setListToFullFulledById
+  ])
+  app.post('/shopping/order/send', [
+    ShoppingController.getLastUnfullFilled,
+    ShoppingController.setListToFullFulledById,
+    EmailController.sendOrderConfirmationEmail
   ])
 }

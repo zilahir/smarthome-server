@@ -79,7 +79,7 @@ exports.setFullFilled = shoppingListId => {
       id: shoppingListId
     }, function(err, shoppingList) {
       if (err) reject(err)
-      shoppingList.isFullFilled = true
+      shoppingList.isFullFilled = false // THIS IS DEBUG
       shoppingList.save(function (err, updatedShoppingList) {
         if (err) reject(err)
         resolve(updatedShoppingList)
