@@ -16,4 +16,7 @@ exports.routesConfig = app => {
   app.get('/shopping/lastshoppinglist', [
     ShoppingController.getLastUnfullFilled
   ])
+  app.patch('/shopping/listfullfilled', [
+    ShoppingController.setListToFullFulledByID
+  ])
 }
