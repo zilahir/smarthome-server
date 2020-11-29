@@ -2,6 +2,7 @@ const ShoppingController = require('./controllers/shopping.controllers')
 
 exports.routesConfig = app => {
   app.post('/shopping/shoppingitem/insert', [
+    ShoppingController.getLastUnfullFilled
     ShoppingController.insertNewShoppingItem
   ])
   app.post('/shopping/product/insert', [
@@ -17,6 +18,6 @@ exports.routesConfig = app => {
     ShoppingController.getLastUnfullFilled
   ])
   app.patch('/shopping/listfullfilled', [
-    ShoppingController.setListToFullFulledByID
+    ShoppingController.setListToFullFulledById
   ])
 }
