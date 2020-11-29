@@ -1,11 +1,9 @@
 const ShoppingModel = require('../models/shopping.models')
 
 exports.insertNewShoppingItem = (req, res) => {
-  ShoppingModel.insertShoppingItem(req.body)
-    .then(() => {
-      res.status(200).send({
-        isSuccess: true,
-      })
+  ShoppingModel.insertShoppingItem(req.body, req.foundShoppingList.id)
+    .then(result => {
+      res.status(200).send(result)
     })
 }
 
@@ -34,7 +32,7 @@ exports.createShoppingList = (req, res) => {
     })
 }
 
-exports.getLastUnfullFilled = (req, res) => {
+exports.getLastUnfullFilled = (req, res, next) => {
   ShoppingModel.getLastUnFullfilledShoppingListId()
     .then(result => {
       if (result === null) {
@@ -43,8 +41,11 @@ exports.getLastUnfullFilled = (req, res) => {
           reason: 'No shopping list found, you need to create one first'
         }
         res.status(500).send(unFullFilled)
+      } else {
+        req.foundShoppingList = result
+        next()
       }
-      res.status(200).send(result)
+      // res.status(200).send(result)
     })
 }
 

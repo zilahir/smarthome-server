@@ -46,12 +46,6 @@ productSchema.set('toJSON', {
   virtuals: true
 })
 
-
-exports.insertShoppingItem = shoppingItemData => {
-  const shoppingItem = new ShoppingItem(shoppingItemData)
-  return shoppingItem.save()
-}
-
 exports.insertProductItem = productItemData => {
   const productItem = new ProductItem(productItemData)
   return productItem.save()
@@ -94,19 +88,44 @@ exports.setFullFilled = shoppingListId => {
   })
 }
 
+exports.findProductByProductName = productName => {
+  return ProductItem.findOne({
+    productName
+  })
+}
+
 exports.addItemToShoppingListItems = (shoppingListId, newShoppingItem) => {
+  console.debug('newShoppingItem', newShoppingItem.productName)
   return new Promise((resolve, reject) => {
     ShoppingList.findOne({
       id: shoppingListId
-    }, (err, shoppingList) => {
+    }, function (err, shoppingList) {
       if (err) reject(err)
-      const currentItems = shoppingListId.items
-      currentItems.concat(newShoppingItem)
-      shoppingList.items = currentItems
-      shoppingList.save((err, updatedShoppingList) => {
-        if (err) reject(err)
-        resolve(updatedShoppingList)
+      const currentItems = shoppingList.items
+      ProductItem.findOne({
+        productName: {
+          $regex: newShoppingItem.productName,
+          $options: "i"
+        }
+      }).then(foundProduct => {
+        if (foundProduct) {
+          console.debug('foundProduct', foundProduct)
+          currentItems.push(foundProduct)
+          shoppingList.items = currentItems
+          shoppingList.save(function(err, updatedShoppingList) {
+            if (err) reject(err)
+            resolve({
+              isSuccess: true,
+            })
+          })
+        }
       })
     })
   })
+}
+
+exports.insertShoppingItem = (shoppingItemData, shoppingListId) => {
+  const shoppingItem = new ShoppingItem(shoppingItemData)
+  this.addItemToShoppingListItems(shoppingListId, shoppingItemData)
+  return shoppingItem.save()
 }

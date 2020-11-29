@@ -2,7 +2,7 @@ const ShoppingController = require('./controllers/shopping.controllers')
 
 exports.routesConfig = app => {
   app.post('/shopping/shoppingitem/insert', [
-    ShoppingController.getLastUnfullFilled
+    ShoppingController.getLastUnfullFilled,
     ShoppingController.insertNewShoppingItem
   ])
   app.post('/shopping/product/insert', [
