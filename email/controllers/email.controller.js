@@ -1,5 +1,6 @@
 const MailConfig = require('../../services/email')
 const hbs = require('nodemailer-express-handlebars');
+const { format } = require('date-fns');
 const smtpTransport = MailConfig.SMTPTransport
 
 exports.sendOrderConfirmationEmail = (req, res) => {
@@ -12,9 +13,10 @@ exports.sendOrderConfirmationEmail = (req, res) => {
     from: '"smarthome@richardzilahi" <smarthome@richardzilahi.hu>',
     to: 'zilahi@gmail.com',
     subject: 'demo',
-    template: 'forgotten_pw',
+    template: 'confirm_order',
     context: {
       demo: orderConfirmObject.demo,
+      date: format(new Date(), 'yyyy-MM-dd hh:mm')
     }
   }
 

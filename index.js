@@ -11,7 +11,6 @@ const RadioRouter = require('./radio/routes.config')
 const ShoppingRouter = require('./shopping/routes.config')
 
 const AuthorizationRouter = require('./authorization/routes.config');
-const EmailRouter = require('./emails/routes.config');
 require('dotenv').config()
 
 const PORT = process.env.PORT || 5000;

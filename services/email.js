@@ -18,7 +18,7 @@ const handlebarOptions = {
       extName: '.hbs',
       partialsDir: 'views',
       layoutsDir: 'views',
-      defaultLayout: 'email/forgotten_pw.hbs',
+      defaultLayout: null,
     },
     viewPath: 'views/email/',
     extName: '.hbs',
