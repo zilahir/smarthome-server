@@ -1,3 +1,4 @@
+const { result } = require('lodash')
 const ShoppingModel = require('../models/shopping.models')
 
 exports.insertNewShoppingItem = (req, res) => {
@@ -46,8 +47,8 @@ exports.getLastUnfullFilled = (req, res, next) => {
         }
         res.status(500).send(unFullFilled)
       } else {
-        console.debug('foundShoppingList', result)
         req.foundShoppingListId = result.id
+        req.foundShoppingList = result
         next()
       }
       // res.status(200).send(result)
@@ -56,7 +57,8 @@ exports.getLastUnfullFilled = (req, res, next) => {
 
 exports.setListToFullFulledById = (req, res, next) => {
   ShoppingModel.setFullFilled(req.foundShoppingListId)
-    .then(() => {
+    .then((result) => {
+      //res.status(200).send(req.foundShoppingList)
       next()
     })
 }

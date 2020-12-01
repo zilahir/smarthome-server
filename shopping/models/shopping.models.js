@@ -70,7 +70,7 @@ exports.getLastUnFullfilledShoppingListId = () => {
     isFullFilled: false
   }).sort({
     'createdAt': -1
-  })
+  }).populate('items')
 }
 
 exports.setFullFilled = shoppingListId => {
@@ -95,7 +95,6 @@ exports.findProductByProductName = productName => {
 }
 
 exports.addItemToShoppingListItems = (shoppingListId, newShoppingItem) => {
-  console.debug('newShoppingItem', newShoppingItem.productName)
   return new Promise((resolve, reject) => {
     ShoppingList.findOne({
       id: shoppingListId
