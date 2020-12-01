@@ -9,6 +9,7 @@ const UsersRouter = require('./users/routes.config');
 const TrainRouter = require('./trains/routes.config')
 const RadioRouter = require('./radio/routes.config')
 const ShoppingRouter = require('./shopping/routes.config')
+const KRuokaRouter = require('./kruoka/routes.config')
 
 const AuthorizationRouter = require('./authorization/routes.config');
 require('dotenv').config()
@@ -34,6 +35,7 @@ AuthorizationRouter.routesConfig(app);
 UsersRouter.routesConfig(app);
 TrainRouter.routesConfig(app)
 ShoppingRouter.routesConfig(app)
+KRuokaRouter.routesConfig(app)
 
 app.get('/', function (req, res) {
 	res.send({
