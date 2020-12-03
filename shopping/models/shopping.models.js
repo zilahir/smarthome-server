@@ -15,6 +15,7 @@ const shoppingSchema = new Schema({
 const productSchema = new Schema({
   productId: String,
   productName: String,
+  customProductName: String,
 })
 
 const ShoppingItem = mongoose.model('Shopping', shoppingSchema)
