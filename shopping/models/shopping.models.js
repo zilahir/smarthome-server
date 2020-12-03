@@ -104,7 +104,7 @@ exports.addItemToShoppingListItems = (shoppingListId, newShoppingItem) => {
       if (err) reject(err)
       const currentItems = shoppingList.items
       ProductItem.findOne({
-        productName: {
+        customProductName: {
           $regex: newShoppingItem.productName,
           $options: "i"
         }

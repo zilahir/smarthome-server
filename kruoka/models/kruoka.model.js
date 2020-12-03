@@ -25,3 +25,13 @@ exports.createBusket = () => new Promise((resolve, reject) => {
     })
   })
 })
+
+exports.getKRuokaProductById = productId => new Promise((resolve) => {
+  fetch()
+    .then(productResponse => productResponse.json()).then(json => {
+      resolve({
+        isSuccess: true,
+        product: json,
+      })
+    })
+})

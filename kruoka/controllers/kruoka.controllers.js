@@ -15,3 +15,10 @@ exports.createKRuokeBusket = (req, res) => {
       res.status(200).send(result)
     })
 }
+
+exports.getKRuokaProductByUd = (req, res) => {
+  KRuokaModel.getKRuokaProductById(req.body.productId)
+    .then(result => {
+      res.status(200).send(result)
+    })
+}
