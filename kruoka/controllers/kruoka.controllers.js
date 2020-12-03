@@ -26,3 +26,11 @@ exports.insertToKRuokeBusket = (req, res) => {
       res.status(200).send(result)
     })
 }
+
+/*
+
+delete example
+
+[{"type":"REMOVE","itemId":"6407800009938"}]
+
+*/
