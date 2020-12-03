@@ -4,4 +4,7 @@ exports.routesConfig = app => {
   app.post('/kruoka/findproduct', [
     KRuokaController.findKRuokaProduct
   ])
+  app.get('/kruoka/createbusket', [
+    KRuokaController.createKRuokeBusket
+  ])
 }
