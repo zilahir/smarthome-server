@@ -1,6 +1,7 @@
 const { mongo } = require('mongoose');
 const { format } = require('date-fns');
 const shortid = require('shortid');
+const ObjectID = require('mongodb').ObjectID;
 
 const mongoose = require('../../services/mongoose.service').mongoose;
 
@@ -134,6 +135,24 @@ exports.insertShoppingItem = (shoppingItemData, shoppingListId) => {
     this.addItemToShoppingListItems(shoppingListId, shoppingItemData)
       .then(result => {
         resolve(result)
+      })
+  })
+}
+
+exports.deleteById = idToTel => {
+  console.debug('idToDel', idToTel)
+  const _id = new ObjectID(idToTel);
+  console.debug('id', _id)
+  return new Promise((resolve, reject) => {
+    ProductItem.deleteOne({ _id }, (err, result) => {
+          if (err) {
+              reject(err)
+          } else {
+              resolve({
+                  isSuccess: true,
+                  idToTel,
+              })
+          }
       })
   })
 }

@@ -9,7 +9,7 @@ exports.routesConfig = app => {
   app.post('/shopping/product/insert', [
     ShoppingController.insertNewProductItem
   ])
-  app.get('/shopping/getallproducts', [
+  app.get('/shopping/products', [
     ShoppingController.getAllProducts
   ])
   app.post('/shopping/shoppinglist', [
@@ -25,5 +25,8 @@ exports.routesConfig = app => {
     ShoppingController.getLastUnfullFilled,
     ShoppingController.setListToFullFulledById,
     EmailController.sendOrderConfirmationEmail
+  ])
+  app.delete('/shopping/product/delete/:productId', [
+    ShoppingController.deleteProduct
   ])
 }

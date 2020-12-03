@@ -62,3 +62,10 @@ exports.setListToFullFulledById = (req, res, next) => {
       next()
     })
 }
+
+exports.deleteProduct = (req, res) => {
+  ShoppingModel.deleteById(req.params.productId)
+    .then(result => {
+      res.status(200).send(result)
+    })
+}
