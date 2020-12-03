@@ -2,6 +2,7 @@ const fetch = require('node-fetch')
 const { resolve } = require('path')
 const { kRuokaApi } = require('../utils/kRuokaApi')
 const { parse } = require('node-html-parser')
+const { apiEndpoint } = require('../../common/config/env.config')
 
 exports.findKRuokaProduct = searchTerm => new Promise((resolve, reject) => {
   fetch(`${kRuokaApi.searchForProduct}/${searchTerm}?offset=0&language=fi&storeId=N149&clientUpdatedPSD2=1`, {
@@ -34,4 +35,17 @@ exports.getKRuokaProductById = productId => new Promise((resolve) => {
         product: json,
       })
     })
+})
+
+exports.insert = (busketId, product) => new Promise((resolve) => {
+  fetch(`${kRuokaApi.insertProductsToBusket}/${busketId}/update?storeId=N106&clientUpdatedPSD2=1`, {
+    method: 'PUT',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(product)
+  }).then(response => response.json()).then(json => {
+    resolve({
+      isSuccess: true,
+      response: json
+    })
+  })
 })

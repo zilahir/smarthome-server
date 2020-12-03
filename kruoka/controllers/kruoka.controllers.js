@@ -8,16 +8,20 @@ exports.findKRuokaProduct = (req, res) => {
     })
 }
 
-exports.createKRuokeBusket = (req, res) => {
+exports.createKRuokeBusket = (req, res, next) => {
   const newBusketId = uuidv4()
   KRuokaModel.createBusket(newBusketId)
     .then(result => {
-      res.status(200).send(result)
+      console.debug('result', result)
+      req.busketId = result.busketId
+      next()
     })
 }
 
-exports.getKRuokaProductByUd = (req, res) => {
-  KRuokaModel.getKRuokaProductById(req.body.productId)
+exports.insertToKRuokeBusket = (req, res) => {
+  const busketId = req.busketId
+  console.debug('body', req.body)
+  KRuokaModel.insert(busketId, req.body)
     .then(result => {
       res.status(200).send(result)
     })

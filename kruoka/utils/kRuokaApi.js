@@ -1,6 +1,7 @@
-const kRuokaApiRoot = 'https://www.k-ruoka.fi/kr-api/v2'
+const kRuokaApiRoot = 'https://www.k-ruoka.fi/kr-api'
 
 exports.kRuokaApi = {
-	searchForProduct: `${kRuokaApiRoot}/product-search`,
-	createBusket: 'https://www.k-ruoka.fi/kauppa?kauppa=k-citymarket-espoo-iso-omena'
+	searchForProduct: `${kRuokaApiRoot}/v2/product-search`,
+	createBusket: 'https://www.k-ruoka.fi/kauppa?kauppa=k-citymarket-espoo-iso-omena',
+	insertProductsToBusket: `${kRuokaApiRoot}/order-drafts`
 }

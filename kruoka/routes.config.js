@@ -7,4 +7,8 @@ exports.routesConfig = app => {
   app.get('/kruoka/createbusket', [
     KRuokaController.createKRuokeBusket
   ])
+  app.put('/kruoka/insertobusket', [
+    KRuokaController.createKRuokeBusket,
+    KRuokaController.insertToKRuokeBusket
+  ])
 }
