@@ -27,14 +27,25 @@ exports.createBusket = () => new Promise((resolve, reject) => {
   })
 })
 
-exports.getKRuokaProductById = productId => new Promise((resolve) => {
-  fetch()
-    .then(productResponse => productResponse.json()).then(json => {
-      resolve({
-        isSuccess: true,
-        product: json,
+exports.getKRuokaProductByUrlSlug = productsArray => new Promise((resolve) => {
+  const promiseArray = []
+
+  for (let i = 0; i<productsArray.length; i++) {
+    const resultArray = []
+    promiseArray.push(new Promise((resolve) => {
+      fetch(`${kRuokaApi.getProductByUrlSlug}/${productsArray[i].urlSlug}-n106?storeId=N106&languageId=fi`)
+      .then(productResponse => productResponse.json()).then(json => {
+        resultArray.push(json)
+        resolve(resultArray)
       })
+    }))
+  }
+  Promise.all(promiseArray).then((result) => {
+    resolve({
+      isSuccess: true,
+      result,
     })
+  })
 })
 
 exports.insert = (busketId, product) => new Promise((resolve) => {

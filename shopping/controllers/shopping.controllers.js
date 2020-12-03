@@ -51,7 +51,7 @@ exports.getLastUnfullFilled = (req, res, next) => {
         req.foundShoppingList = result
         next()
       }
-      res.status(200).send(result)
+      // res.status(200).send(result)
     })
 }
 

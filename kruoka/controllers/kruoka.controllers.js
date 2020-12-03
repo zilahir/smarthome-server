@@ -27,6 +27,14 @@ exports.insertToKRuokeBusket = (req, res) => {
     })
 }
 
+exports.createProductRows = (req, res) => {
+  const foundShoppingList = req.foundShoppingList
+  KRuokaModel.getKRuokaProductByUrlSlug(foundShoppingList.items)
+    .then(result => {
+      res.status(200).send(result)
+    })
+}
+
 /*
 
 delete example

@@ -47,13 +47,14 @@ app.get('/', function (req, res) {
 server.listen(PORT, () => {
 	console.log(`Listen on *: ${PORT}`)
 	
-	ngrok.connect({
+	/*ngrok.connect({
 		port: 5000,
 		authtoken: 'i8rcHzWUZEz15resuqWJ_3CsUyJvsSAJEpHVV2LVr4'
 	})
 		.then(result => {
 			console.debug(result)
 		})
+		*/
 });
 
 // module.exports.handler = serverless(app);
