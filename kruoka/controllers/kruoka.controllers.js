@@ -26,7 +26,7 @@ exports.insertToKRuokaBasket = (req, res) => {
 
 exports.createProductRows = (req, res) => {
   const foundShoppingList = req.foundShoppingList
-  KRuokaModel.getKRuokaProductByUrlSlug(foundShoppingList.items)
+  KRuokaModel.getKRuokaProductByUrlSlug(req, foundShoppingList.items)
     .then(result => {
       res.status(200).send(result)
     })

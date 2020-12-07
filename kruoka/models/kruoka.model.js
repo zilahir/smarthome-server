@@ -27,20 +27,24 @@ exports.createBasket = () => new Promise((resolve, reject) => {
   })
 })
 
-exports.getKRuokaProductByUrlSlug = productsArray => new Promise((resolve) => {
+exports.getKRuokaProductByUrlSlug = (req, productsArray) => new Promise((resolve) => {
   const promiseArray = []
   const resultArray = []
   for (let i = 0; i<productsArray.length; i++) {
     promiseArray.push(new Promise((resolve) => {
       fetch(`${kRuokaApi.getProductByUrlSlug}/${productsArray[i].urlSlug}-n155?storeId=N155&languageId=fi`)
       .then(productResponse => productResponse.json()).then(json => {
-        resultArray.push({
+        const product = {
           allowSubstitutes: true,
           ean: productsArray[i].id,
           id: productsArray[i].id,
           type: "ITEM"
-        })
-        resolve(resultArray)
+        }
+        resultArray.push(product)
+        this.insert(req.basketId, product)
+          .then(() => {
+            resolve(resultArray)
+          })
       })
     }))
   }
@@ -67,7 +71,7 @@ exports.insert = (basketId, product) => new Promise((resolve) => {
 
 exports.clear = basketId => new Promise((resolve) => {
   fetch(`${kRuokaApi.clearBasket}/${basketId}`, {
-    method: 'PUT',
+    method: 'DELETE',
     headers: {'Content-Type': 'application/json'},
   }).then().then(() => {
     resolve({

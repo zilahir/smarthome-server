@@ -1,5 +1,6 @@
 const ShoppingController = require('./controllers/shopping.controllers')
 const EmailController = require('../email/controllers/email.controller')
+const KRuokaController = require('../kruoka/controllers/kruoka.controllers')
 
 exports.routesConfig = app => {
   app.post('/shopping/shoppingitem/insert', [
@@ -29,7 +30,9 @@ exports.routesConfig = app => {
   app.delete('/shopping/product/delete/:productId', [
     ShoppingController.deleteProduct
   ])
-  app.get('/shopping/test', [
-    ShoppingController.takeScreenShot
+  app.post('/shopping/test', [
+    ShoppingController.getLastUnfullFilled,
+    KRuokaController.createKRuokaBasket,
+    KRuokaController.createProductRows
   ])
 }

@@ -141,9 +141,7 @@ exports.insertShoppingItem = (shoppingItemData, shoppingListId) => {
 }
 
 exports.deleteById = idToTel => {
-  console.debug('idToDel', idToTel)
   const _id = new ObjectID(idToTel);
-  console.debug('id', _id)
   return new Promise((resolve, reject) => {
     ProductItem.deleteOne({ _id }, (err, result) => {
           if (err) {
