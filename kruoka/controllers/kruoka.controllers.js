@@ -48,6 +48,10 @@ exports.getBasket = (req, res) => {
     })
 }
 
+exports.saveBasketAsFavourite = (req, res) => {
+  KRuokaModel.saveBasket(req.basketId)
+}
+
 /*
 
 delete example

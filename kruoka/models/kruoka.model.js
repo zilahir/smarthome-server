@@ -3,6 +3,7 @@ const { resolve } = require('path')
 const { kRuokaApi } = require('../utils/kRuokaApi')
 const { parse } = require('node-html-parser')
 const { apiEndpoint } = require('../../common/config/env.config')
+const { EPROTONOSUPPORT } = require('constants')
 
 exports.findKRuokaProduct = searchTerm => new Promise((resolve, reject) => {
   fetch(`${kRuokaApi.searchForProduct}/${searchTerm}?offset=0&language=fi&storeId=N149&clientUpdatedPSD2=1`, {
@@ -89,6 +90,17 @@ exports.getBasketById = basketId => new Promise((resolve) => {
     resolve({
       isSuccess: true,
       response: json,
+    })
+  })
+})
+
+exports.saveBasket = basketId => new Promise((resolve) => {
+  fetch(`${kRuokaApi.saveBasket}`, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+  }).then().then(() => {
+    resolve({
+      isSuccess: true,
     })
   })
 })

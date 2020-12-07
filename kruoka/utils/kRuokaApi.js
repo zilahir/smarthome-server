@@ -6,5 +6,6 @@ exports.kRuokaApi = {
 	insertProductsToBasket: `${kRuokaApiRoot}/order-drafts`,
 	getProductByUrlSlug: `${kRuokaApiRoot}/v2/products`,
 	getBaskets: `${kRuokaApiRoot}/order-drafts/baskets`,
-	clearBasket: `${kRuokaApiRoot}/order-drafts`
+	clearBasket: `${kRuokaApiRoot}/order-drafts`,
+	saveBasket: `${kRuokaApiRoot}/save`
 }
