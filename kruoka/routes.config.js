@@ -19,4 +19,7 @@ exports.routesConfig = app => {
   app.delete('/kruoka/clearbasket/:idToDelete', [
     KRuokaController.clearBasket
   ])
+  app.get('/kruoka/basket/:basketId', [
+    KRuokaController.getBasket
+  ])
 }

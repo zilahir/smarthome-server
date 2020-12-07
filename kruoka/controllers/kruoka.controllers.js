@@ -40,9 +40,15 @@ exports.clearBasket = (req, res) => {
     })
 }
 
-/*
+exports.getBasket = (req, res) => {
+  const basketId = req.params.basketId
+  KRuokaModel.getBasketById(basketId)
+    .then(result => {
+      res.status(200).send(result)
+    })
+}
 
-2f6690de-772a-482d-ba62-9ee3a70f9055
+/*
 
 delete example
 

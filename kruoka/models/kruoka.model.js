@@ -32,9 +32,14 @@ exports.getKRuokaProductByUrlSlug = productsArray => new Promise((resolve) => {
   const resultArray = []
   for (let i = 0; i<productsArray.length; i++) {
     promiseArray.push(new Promise((resolve) => {
-      fetch(`${kRuokaApi.getProductByUrlSlug}/${productsArray[i].urlSlug}-n106?storeId=N106&languageId=fi`)
+      fetch(`${kRuokaApi.getProductByUrlSlug}/${productsArray[i].urlSlug}-n155?storeId=N155&languageId=fi`)
       .then(productResponse => productResponse.json()).then(json => {
-        resultArray.push(json)
+        resultArray.push({
+          allowSubstitutes: true,
+          ean: productsArray[i].id,
+          id: productsArray[i].id,
+          type: "ITEM"
+        })
         resolve(resultArray)
       })
     }))
@@ -48,7 +53,7 @@ exports.getKRuokaProductByUrlSlug = productsArray => new Promise((resolve) => {
 })
 
 exports.insert = (basketId, product) => new Promise((resolve) => {
-  fetch(`${kRuokaApi.insertProductsToBasket}/${basketId}/update?storeId=N106&clientUpdatedPSD2=1`, {
+  fetch(`${kRuokaApi.insertProductsToBasket}/${basketId}/update?storeId=N155&clientUpdatedPSD2=1`, {
     method: 'PUT',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(product)
@@ -67,6 +72,18 @@ exports.clear = basketId => new Promise((resolve) => {
   }).then().then(() => {
     resolve({
       isSuccess: true
+    })
+  })
+})
+
+exports.getBasketById = basketId => new Promise((resolve) => {
+  fetch(`${kRuokaApi.getBaskets}/${basketId}`, {
+    method: 'GET',
+    headers: {'Content-Type': 'application/json'},
+  }).then(res => res).then(json => {
+    resolve({
+      isSuccess: true,
+      response: json,
     })
   })
 })
