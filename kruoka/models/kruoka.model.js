@@ -39,6 +39,7 @@ exports.getKRuokaProductByUrlSlug = (req, productsArray) => new Promise((resolve
           ean: productsArray[i].id,
           id: productsArray[i].id,
           type: "ITEM"
+          // TODO: missing KPL data
         }
         resultArray.push(product)
         this.insert(req.basketId, product)
