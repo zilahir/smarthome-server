@@ -53,8 +53,8 @@ server.listen(PORT, () => {
 	})
 		.then(result => {
 			console.debug(result)
-		})
-		*/
+		})*/
+		
 });
 
 // module.exports.handler = serverless(app);
