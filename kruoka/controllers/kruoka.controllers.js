@@ -32,7 +32,17 @@ exports.createProductRows = (req, res) => {
     })
 }
 
+exports.clearBasket = (req, res) => {
+  const idToDelete = req.params.idToDelete
+  KRuokaModel.clear(idToDelete)
+    .then(result => {
+      res.status(200).send(result)
+    })
+}
+
 /*
+
+2f6690de-772a-482d-ba62-9ee3a70f9055
 
 delete example
 

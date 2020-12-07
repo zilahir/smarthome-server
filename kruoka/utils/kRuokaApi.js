@@ -4,5 +4,7 @@ exports.kRuokaApi = {
 	searchForProduct: `${kRuokaApiRoot}/v2/product-search`,
 	createBasket: 'https://www.k-ruoka.fi/kauppa?kauppa=k-citymarket-espoo-iso-omena',
 	insertProductsToBasket: `${kRuokaApiRoot}/order-drafts`,
-	getProductByUrlSlug: `${kRuokaApiRoot}/v2/products`
+	getProductByUrlSlug: `${kRuokaApiRoot}/v2/products`,
+	getBaskets: `${kRuokaApiRoot}/order-drafts/baskets`,
+	clearBasket: `${kRuokaApiRoot}/order-drafts`
 }

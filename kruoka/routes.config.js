@@ -16,4 +16,7 @@ exports.routesConfig = app => {
     ShoppingController.getLastUnfullFilled,
     KRuokaController.createProductRows,
   ])
+  app.delete('/kruoka/clearbasket/:idToDelete', [
+    KRuokaController.clearBasket
+  ])
 }

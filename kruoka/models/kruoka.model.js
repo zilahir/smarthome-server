@@ -59,3 +59,14 @@ exports.insert = (basketId, product) => new Promise((resolve) => {
     })
   })
 })
+
+exports.clear = basketId => new Promise((resolve) => {
+  fetch(`${kRuokaApi.clearBasket}/${basketId}`, {
+    method: 'PUT',
+    headers: {'Content-Type': 'application/json'},
+  }).then().then(() => {
+    resolve({
+      isSuccess: true
+    })
+  })
+})
