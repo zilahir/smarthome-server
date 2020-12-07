@@ -5,12 +5,12 @@ exports.routesConfig = app => {
   app.post('/kruoka/findproduct', [
     KRuokaController.findKRuokaProduct
   ])
-  app.get('/kruoka/createbusket', [
-    KRuokaController.createKRuokeBusket
+  app.get('/kruoka/createbasket', [
+    KRuokaController.createKRuokaBasket
   ])
-  app.put('/kruoka/insertobusket', [
-    KRuokaController.createKRuokeBusket,
-    KRuokaController.insertToKRuokeBusket
+  app.put('/kruoka/insertobasket', [
+    KRuokaController.createKRuokaBasket,
+    KRuokaController.insertToKRuokaBasket
   ])
   app.get('/kruoka/products', [
     ShoppingController.getLastUnfullFilled,

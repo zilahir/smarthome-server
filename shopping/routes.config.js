@@ -29,4 +29,7 @@ exports.routesConfig = app => {
   app.delete('/shopping/product/delete/:productId', [
     ShoppingController.deleteProduct
   ])
+  app.get('/shopping/test', [
+    ShoppingController.takeScreenShot
+  ])
 }

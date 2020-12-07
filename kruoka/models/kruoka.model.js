@@ -13,8 +13,8 @@ exports.findKRuokaProduct = searchTerm => new Promise((resolve, reject) => {
   })
 })
 
-exports.createBusket = () => new Promise((resolve, reject) => {
-  fetch(`${kRuokaApi.createBusket}`, {
+exports.createBasket = () => new Promise((resolve, reject) => {
+  fetch(`${kRuokaApi.createBasket}`, {
     method: 'GET',
     headers: {'Content-Type': 'text/html'},
   }).then(html => html.text()).then(htmlResponse => {
@@ -22,7 +22,7 @@ exports.createBusket = () => new Promise((resolve, reject) => {
     const applicationState = html.querySelector('#applicationState').getAttribute('data-state')
     resolve({
       isSuccess: true,
-      busketId: JSON.parse(applicationState).page.state.orderDraft.draft.draftId,
+      basketId: JSON.parse(applicationState).page.state.orderDraft.draft.draftId,
     })
   })
 })
@@ -47,8 +47,8 @@ exports.getKRuokaProductByUrlSlug = productsArray => new Promise((resolve) => {
   })
 })
 
-exports.insert = (busketId, product) => new Promise((resolve) => {
-  fetch(`${kRuokaApi.insertProductsToBusket}/${busketId}/update?storeId=N106&clientUpdatedPSD2=1`, {
+exports.insert = (basketId, product) => new Promise((resolve) => {
+  fetch(`${kRuokaApi.insertProductsToBasket}/${basketId}/update?storeId=N106&clientUpdatedPSD2=1`, {
     method: 'PUT',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(product)

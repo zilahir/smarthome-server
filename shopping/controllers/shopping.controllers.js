@@ -1,5 +1,7 @@
 const { result } = require('lodash')
 const ShoppingModel = require('../models/shopping.models')
+const playwright = require('playwright');
+const { v4: uuidv4 } = require('uuid');
 
 exports.insertNewShoppingItem = (req, res) => {
   ShoppingModel.insertShoppingItem(req.body, req.foundShoppingListId)
@@ -68,4 +70,21 @@ exports.deleteProduct = (req, res) => {
     .then(result => {
       res.status(200).send(result)
     })
+}
+
+exports.takeScreenShot = (req, res) => {
+  (async () => {
+    for (const browserType of ['chromium']) {
+      const browser = await playwright[browserType].launch();
+      const context = await browser.newContext();
+      const page = await context.newPage();
+      await page.goto('https://www.k-ruoka.fi/');
+      await page.click('cookie-notice accept-button')
+      await page.screenshot({ path: `${uuidv4()}.png` });
+      await browser.close();
+    }
+  })();
+  res.status(200).send({
+    isSuccess: true
+  })
 }
