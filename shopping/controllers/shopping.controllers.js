@@ -57,6 +57,14 @@ exports.getLastUnfullFilled = (req, res, next) => {
     })
 }
 
+exports.getLastShoppingList = (req, res, next) => {
+  ShoppingModel.getLastUnFullfilledShoppingListId()
+    .then(result => {
+      req.foundShoppingList = result
+      next()
+    })
+}
+
 exports.setListToFullFulledById = (req, res, next) => {
   ShoppingModel.setFullFilled(req.foundShoppingListId)
     .then((result) => {

@@ -32,6 +32,14 @@ exports.createProductRows = (req, res) => {
     })
 }
 
+exports.getKRuokaProducts = (req, res) => {
+  const foundShoppingList = req.foundShoppingList
+  KRuokaModel.getKRuokaProductByUrlSlug(req, foundShoppingList.items)
+    .then(result => {
+      res.status(200).send(result)
+    })
+}
+
 exports.clearBasket = (req, res) => {
   const idToDelete = req.params.idToDelete
   KRuokaModel.clear(idToDelete)

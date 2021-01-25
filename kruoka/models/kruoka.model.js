@@ -35,18 +35,23 @@ exports.getKRuokaProductByUrlSlug = (req, productsArray) => new Promise((resolve
     promiseArray.push(new Promise((resolve) => {
       fetch(`${kRuokaApi.getProductByUrlSlug}/${productsArray[i].urlSlug}-n155?storeId=N155&languageId=fi`)
       .then(productResponse => productResponse.json()).then(json => {
-        const product = {
+        /* const product = {
           allowSubstitutes: true,
           ean: productsArray[i].id,
           id: productsArray[i].id,
-          type: "ITEM"
+          type: "ITEM", 
           // TODO: missing KPL data
+        } */
+        const product = {
+          product: productsArray[i],
+          prices: json.prices
         }
         resultArray.push(product)
-        this.insert(req.basketId, product)
+        /*this.insert(req.basketId, product)
           .then(() => {
             resolve(resultArray)
-          })
+          }) */
+          resolve(resultArray)
       })
     }))
   }

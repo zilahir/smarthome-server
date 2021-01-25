@@ -29,8 +29,8 @@ const shoppingListSchema = new Schema({
   isFullFilled: Boolean,
   id: String,
   items: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Product'
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Product'
   }]
 })
 
