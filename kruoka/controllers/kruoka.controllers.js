@@ -34,7 +34,7 @@ exports.createProductRows = (req, res) => {
 
 exports.getKRuokaProducts = (req, res) => {
   const foundShoppingList = req.foundShoppingList
-  KRuokaModel.getKRuokaProductByUrlSlug(req, foundShoppingList.items)
+  KRuokaModel.getKRuokaProductByUrlSlug(req, foundShoppingList)
     .then(result => {
       res.status(200).send(result)
     })

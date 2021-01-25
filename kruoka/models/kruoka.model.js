@@ -3,7 +3,6 @@ const { resolve } = require('path')
 const { kRuokaApi } = require('../utils/kRuokaApi')
 const { parse } = require('node-html-parser')
 const { apiEndpoint } = require('../../common/config/env.config')
-const { EPROTONOSUPPORT } = require('constants')
 
 exports.findKRuokaProduct = searchTerm => new Promise((resolve, reject) => {
   fetch(`${kRuokaApi.searchForProduct}/${searchTerm}?offset=0&language=fi&storeId=N149&clientUpdatedPSD2=1`, {
@@ -28,9 +27,10 @@ exports.createBasket = () => new Promise((resolve, reject) => {
   })
 })
 
-exports.getKRuokaProductByUrlSlug = (req, productsArray) => new Promise((resolve) => {
+exports.getKRuokaProductByUrlSlug = (req, products) => new Promise((resolve) => {
   const promiseArray = []
   const resultArray = []
+  const productsArray = products.items
   for (let i = 0; i<productsArray.length; i++) {
     promiseArray.push(new Promise((resolve) => {
       fetch(`${kRuokaApi.getProductByUrlSlug}/${productsArray[i].urlSlug}-n155?storeId=N155&languageId=fi`)
@@ -43,8 +43,8 @@ exports.getKRuokaProductByUrlSlug = (req, productsArray) => new Promise((resolve
           // TODO: missing KPL data
         } */
         const product = {
-          product: productsArray[i],
-          prices: json.prices
+            ...productsArray[i],
+            prices: json.prices
         }
         resultArray.push(product)
         /*this.insert(req.basketId, product)
