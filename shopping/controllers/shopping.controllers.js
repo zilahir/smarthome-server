@@ -60,8 +60,8 @@ exports.getLastUnfullFilled = (req, res, next) => {
 exports.getLastShoppingList = (req, res, next) => {
   ShoppingModel.getLastUnFullfilledShoppingListId()
     .then(result => {
-      console.debug('result', result)
       req.foundShoppingList = result.toObject()
+      // res.status(200).send(result)
       next()
     })
 }

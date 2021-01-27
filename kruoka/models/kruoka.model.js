@@ -42,9 +42,11 @@ exports.getKRuokaProductByUrlSlug = (req, products) => new Promise((resolve) => 
           type: "ITEM", 
           // TODO: missing KPL data
         } */
+        const thisProductId = productsArray[i].productId
+        console.debug('thisProductId', thisProductId)
         const product = {
             ...productsArray[i],
-            prices: json.prices
+            prices: json.prices.preprocessedPricing.products[Object.keys(json.prices.preprocessedPricing.products)[0]].price
         }
         resultArray.push(product)
         /*this.insert(req.basketId, product)
@@ -58,7 +60,7 @@ exports.getKRuokaProductByUrlSlug = (req, products) => new Promise((resolve) => 
   Promise.all(promiseArray).then((result) => {
     resolve({
       isSuccess: true,
-      result: result[0],
+      items: result[0],
     })
   })
 })
